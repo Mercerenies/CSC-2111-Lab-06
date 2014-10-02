@@ -70,29 +70,31 @@ Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
 
 bool Maze::isSolved(Cell* curr_cell, StackLinked<Cell>* stack)
 {
+   bool solved = 0;
+
    //DO THIS
    //get row and col from curr_cell
-
+   int currHeight = curr_cell->getCol();
+   int currWidth = curr_cell->getRow();
 
 
    //have you solved the maze? (check that we are at the bottom right maze location and that it is a SPACE
-   if (                                                          )  
+   if ((currHeight == height) && (currWidth == width) && (maze[currHeight*currWidth - 1] == 1))  
    {
-
-
       //set the maze location to TRIED
-
+      TRIED = 1;
 
       //push curr_cell
+      stack->push(curr_cell);
 
+      solved = 1;
 
       gui->update();
       //return the appropriate boolean
-
+     return solved;
    }
-
-
    //return the appropriate boolean
+   return solved;
 }
 
 //backing through the maze, setting the solution color to PATH
