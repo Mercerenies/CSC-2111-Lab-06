@@ -4,6 +4,8 @@
 
 #include <windows.h>  //for the sleep function
 
+#define SLEEP_TIME 20
+
 #include <iostream>
 using namespace std;
 
@@ -58,7 +60,7 @@ Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
       delete top_cell;
       top_cell = stack->peek();
 
-      Sleep(75);      //slow down the maze traversal
+      Sleep(SLEEP_TIME);      //slow down the maze traversal
       gui->update();  //update whenever the color of a cell has been changed
    }
 
@@ -71,12 +73,12 @@ bool Maze::isSolved(Cell* curr_cell, StackLinked<Cell>* stack)
 
    //DO THIS
    //get row and col from curr_cell
-   int currHeight = curr_cell->getCol();
-   int currWidth = curr_cell->getRow();
+   int currHeight = curr_cell->getRow();
+   int currWidth = curr_cell->getCol();
 
 
    //have you solved the maze? (check that we are at the bottom right maze location and that it is a SPACE
-   if ((currHeight == height) && (currWidth == width) && (maze[currHeight*currWidth - 1] == 1))  
+   if ((currHeight == height) && (currWidth == width) && (maze->getElement(currHeight, currWidth) == 1))  
    {
       //set the maze location to TRIED
       TRIED = 1;
@@ -99,14 +101,15 @@ void Maze::processSolution(StackLinked<Cell>* stack)
 {
    //DO THIS
    //the stack has the solution path stored
-   while( false )
+
+   while( !stack->isEmpty() )
    {
       //get the next cell from the stack
+		Cell* cell = stack->pop();
+		
 
-
-      
       //update the maze location to PATH
-
+		maze->setElement(cell->getRow(), cell->getCol(), PATH);
 
 
 
@@ -155,7 +158,7 @@ bool Maze::traverse()
          maze->setElement(curr_cell->getRow(), curr_cell->getCol(), TRIED);
          stack.push(curr_cell);
 
-         Sleep(75);  //slow down the maze traversal
+         Sleep(SLEEP_TIME);  //slow down the maze traversal
          gui->update();
       }
       else //look for a different route 

@@ -1,3 +1,10 @@
+/*
+ * https://github.com/Mercerenies/CSC-2111-Lab-06
+ * Cristian Quiterio
+ * Silvio Mayolo
+ * Omari Smith
+ */
+
 #include "MazeGUI.h"
 #include "Matrix.h"
 
