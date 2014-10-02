@@ -46,15 +46,14 @@ Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
    //top_cell is NULL if the stack is empty
    //top_cell's direction is DEAD_END if you need to keep backtracking
 
-   while ((top_cell != NULL) && (top_cell->getDir() != DEAD_END))  //need to back track
+   while ((top_cell != NULL) && (top_cell->getDir() == DEAD_END))  //need to back track
    {
-      
 
 
       //remove the cell and set the maze location to BACKTRACK (the maze is a Matrix)
       stack->pop();
       this->maze->setElement(top_cell->getRow(), top_cell->getCol(), BACKTRACK);
-      
+
       //look at the next cell
       delete top_cell;
       top_cell = stack->peek();
@@ -89,7 +88,7 @@ bool Maze::isSolved(Cell* curr_cell, StackLinked<Cell>* stack)
 
    }
 
-
+    return false;
    //return the appropriate boolean
 }
 
@@ -126,7 +125,6 @@ bool Maze::traverse()
 
    Cell* start_cell = new Cell(1, 1);
    stack.push(start_cell);  //start from the top left corner
-
    while(!stack.isEmpty())
    {
       Cell* top_cell = processBackTrack(&stack);
@@ -135,10 +133,7 @@ bool Maze::traverse()
       //call a method in the Cell class to give you a new Cell in a new direction relative to top_cell (initially, DOWN)
       //DO THIS
       Cell* curr_cell = NULL;
-
-
-
-
+      curr_cell = top_cell->nextCell();
 
       //does this new Cell solve the maze?
       done = isSolved(curr_cell, &stack);
@@ -150,16 +145,13 @@ bool Maze::traverse()
       int col = 0;
 
       //check that the current cell corresponds to SPACE, otherwise delete it
-      if ( false )
+      if ( maze->getElement(curr_cell->getRow(), curr_cell->getCol()) == SPACE )
       {
          //update the cell to TRIED
          //put the cell on the stack (move forward through the maze)
-
-
-
-
-
-
+        
+         maze->setElement(curr_cell->getRow(), curr_cell->getCol(), TRIED);
+         stack.push(curr_cell);
 
          Sleep(75);  //slow down the maze traversal
          gui->update();
@@ -168,7 +160,7 @@ bool Maze::traverse()
       {
          //DO THIS
          //delete the cell
-
+         delete curr_cell , curr_cell = NULL;
 
       }
    }
