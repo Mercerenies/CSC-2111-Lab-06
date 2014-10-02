@@ -79,6 +79,7 @@ void StackLinked<T>::push(T* item)
     NextNode<T>* front = new NextNode<T>(item);
     front->setNext(top);
     top = front;
+    ++sze;
 }
 
 template < class T >
@@ -91,6 +92,7 @@ T* StackLinked<T>::pop()
     NextNode<T>* del = top;
     top = del->getNext();
     delete del , del = NULL;
+    --sze;
     return item;
 }
 
