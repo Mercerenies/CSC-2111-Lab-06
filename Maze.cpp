@@ -62,8 +62,9 @@ Cell* Maze::processBackTrack(StackLinked<Cell>* stack)
 
       Sleep(SLEEP_TIME);      //slow down the maze traversal
       gui->update();  //update whenever the color of a cell has been changed
+      
    }
-
+    
    return top_cell;
 }
 
@@ -132,6 +133,7 @@ bool Maze::traverse()
    stack.push(start_cell);  //start from the top left corner
    while(!stack.isEmpty())
    {
+
       Cell* top_cell = processBackTrack(&stack);
       if (top_cell == NULL) break;  //no solution (back tracked all the way to the beginning)
 
@@ -168,6 +170,7 @@ bool Maze::traverse()
          delete curr_cell , curr_cell = NULL;
 
       }
+
    }
 
    //did we make it to the bottom right?
